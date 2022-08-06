@@ -1,40 +1,37 @@
 ﻿using SchoolCore.entities;
+using SchoolCore.util;
 using System;
 
-namespace SchoolCore {
 
-    class Program {
-        static void Main(string[] args) {
+namespace SchoolCore
+{
 
-            School school = new School("University Juarez Autonome of Tabasco",1990);
-            school.TypeSchool = TypeSchool.University;
-            school.Country = "México";
-            school.City = "Villahermosa,Tab";
-            Console.WriteLine($"{school}");
+    class Program
+    {
+        static void Main(string[] args)
+        {
 
-            List<Course> course = new List<Course>();
+           SchoolEngine engine = new SchoolEngine();
+            engine.InitializeData();
 
-            course.Add(new Course()
-            {
-                Name = "POO",
-                Turn = Turn.Matutine
-            });
-            course.Add(new Course()
-            {
-                Name = "POO2",
-                Turn = Turn.Vespertine
-            });
-
-            PrintCourses(course);
+            PrintSchools(engine.School);
+            PrintCourses(engine.School.Courses);
         }
 
         private static void PrintCourses(List<Course> courses)
-        { 
-            foreach (Course course in courses) {
+        {
+            Printer.LineDraw(70);
+            Printer.Beep(10000,500,5);
+            foreach (Course course in courses)
+            {
                 Console.WriteLine($"Name {course.Name}, Turn {course.Turn}, ID {course.Id}");
             }
-          
+        }
 
+        private static void PrintSchools(School school)
+        {
+            Printer.LineDraw(70);
+            Console.WriteLine($"Name {school.Name}, Country {school.Country}, City {school.City}");
         }
     }
 

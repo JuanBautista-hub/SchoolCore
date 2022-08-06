@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolCore.entities
 {
-    internal class School
+    public class School
     {
         public string Name { get; set; }
 
@@ -15,6 +15,7 @@ namespace SchoolCore.entities
         public string Country { get; set; }
 
         public string City { get; set; }
+        public List<Course> Courses { get; set; }
 
         public TypeSchool TypeSchool { get; set; }
 

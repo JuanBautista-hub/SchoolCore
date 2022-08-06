@@ -11,6 +11,8 @@ namespace SchoolCore.entities
         public string Id { get; private set; }
         public string Name { get; set; }
         public Turn Turn { get; set; }
+        public List<Subject> Subject { get; set; }
+        public List<Student> Student { get; set; }
 
         public Course() {
             Id = Guid.NewGuid().ToString();
