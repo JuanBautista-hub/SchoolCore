@@ -12,18 +12,29 @@ namespace SchoolCore {
             school.City = "Villahermosa,Tab";
             Console.WriteLine($"{school}");
 
+            List<Course> course = new List<Course>();
 
-            Course course = new Course() {
+            course.Add(new Course()
+            {
                 Name = "POO",
                 Turn = Turn.Matutine
-            };
-            Course course2 = new Course()
+            });
+            course.Add(new Course()
             {
                 Name = "POO2",
                 Turn = Turn.Vespertine
-            };
-            Console.WriteLine($"Name {course.Name}, Turn {course.Turn}, ID {course.Id}");
-            Console.WriteLine($"Name {course2.Name}, Turn {course2.Turn}, ID {course2.Id}");
+            });
+
+            PrintCourses(course);
+        }
+
+        private static void PrintCourses(List<Course> courses)
+        { 
+            foreach (Course course in courses) {
+                Console.WriteLine($"Name {course.Name}, Turn {course.Turn}, ID {course.Id}");
+            }
+          
+
         }
     }
 
