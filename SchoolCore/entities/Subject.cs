@@ -6,15 +6,9 @@ using System.Threading.Tasks;
 
 namespace SchoolCore.entities
 {
-    public class Subject
+    public class Subject:ObjSchoolBase
     {
-        public string SubjectD { get; set; }
-        public string Name { get; set; }
 
 
-        public Subject()
-        {
-            SubjectD = Guid.NewGuid().ToString();
-        }
     }
 }

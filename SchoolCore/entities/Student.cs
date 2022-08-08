@@ -6,16 +6,9 @@ using System.Threading.Tasks;
 
 namespace SchoolCore.entities
 {
-    public class Student
+    public class Student: ObjSchoolBase
     {
-        public string StudentID { get; set; }
-        public string Name { get; set; }
-        public List<Evaluation> Evaluation { get; set; }
+        public List<Evaluation> Evaluation { get; set; } = new List<Evaluation>();
 
-        public Student()
-        {
-            StudentID = Guid.NewGuid().ToString();
-            Evaluation = new List<Evaluation>();
-        }
     }
 }

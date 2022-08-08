@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace SchoolCore.entities
 {
-    public class School
+    public class School:ObjSchoolBase
     {
-        public string Name { get; set; }
 
         public int AgeCreation { get; set; }
 

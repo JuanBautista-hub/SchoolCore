@@ -10,9 +10,9 @@ namespace SchoolCore
     {
         static void Main(string[] args)
         {
-
-           SchoolEngine engine = new SchoolEngine();
+            SchoolEngine engine = new SchoolEngine();
             engine.InitializeData();
+            var listObj =  engine.GetObjShcool();
 
             PrintSchools(engine.School);
             PrintCourses(engine.School.Courses);
@@ -22,13 +22,11 @@ namespace SchoolCore
         private static void PrintCourses(List<Course> courses)
         {
             Printer.LineDraw(70);
-            Printer.Beep(10000,500,5);
+            Printer.Beep(10000, 500, 5);
             foreach (Course course in courses)
             {
-                Console.WriteLine($"Name {course.Name}, Turn {course.Turn}, ID {course.Id}");
+                Console.WriteLine($"Name {course.Name}, Turn {course.Turn}, ID {course.UniqueID}");
             }
-
-
         }
 
         private static void PrintSchools(School school)
@@ -43,33 +41,30 @@ namespace SchoolCore
             Printer.Beep(10000, 500, 5);
             foreach (Course course in courses)
             {
-          
                 Printer.LineDraw(70);
                 Printer.Beep(10000, 500, 5);
-                Console.WriteLine($"Name {course.Name}, Turn {course.Turn}, ID {course.Id}");
-         
-               
-                foreach (Student student in course.Student) {
+                Console.WriteLine($"Name {course.Name}, Turn {course.Turn}, ID {course.UniqueID}");
+
+                foreach (Student student in course.Student)
+                {
                     Printer.LineDraw(70);
                     Printer.Beep(10000, 500, 5);
-                    Console.WriteLine($"Name {student.Name}, ID {student.StudentID}");
+                    Console.WriteLine($"Name {student.Name}, ID {student.UniqueID}");
                     PrintStudentsEvaluation(student.Evaluation);
                 }
-              
+
             }
         }
+
         private static void PrintStudentsEvaluation(List<Evaluation> evaluation)
         {
-      
-                Printer.LineDraw(70);
-                Printer.Beep(10000, 500, 5);
-                foreach (Evaluation ev in evaluation)
-                {
-                    Console.WriteLine($"Name {ev.Name}, ID {ev.Note}");
+            Printer.LineDraw(70);
+            Printer.Beep(10000, 500, 5);
+            foreach (Evaluation ev in evaluation)
+            {
+                Console.WriteLine($"Name {ev.Name}, ID {ev.Note}");
 
-                }
-
-        
+            }
         }
     }
 
