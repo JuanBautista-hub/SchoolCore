@@ -10,11 +10,12 @@ namespace SchoolCore.entities
     {
         public string StudentID { get; set; }
         public string Name { get; set; }
-
+        public List<Evaluation> Evaluation { get; set; }
 
         public Student()
         {
             StudentID = Guid.NewGuid().ToString();
+            Evaluation = new List<Evaluation>();
         }
     }
 }
