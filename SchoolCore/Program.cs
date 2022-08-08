@@ -12,11 +12,15 @@ namespace SchoolCore
         {
             SchoolEngine engine = new SchoolEngine();
             engine.InitializeData();
-            var listObj =  engine.GetObjShcool();
+            engine.School.CleanDirection();;
+           //var listObj =  engine.GetObjShcool();
 
-            PrintSchools(engine.School);
-            PrintCourses(engine.School.Courses);
-            PrintStudents(engine.School.Courses);
+            //var listPlace = from obj in listObj select (IPlace) obj;
+            var listPlace = engine.GetObjSchool(false,false,false,false);
+            // Console.WriteLine(listPlace);
+            //PrintSchools(engine.School);
+            // PrintCourses(engine.School.Courses);
+            // PrintStudents(engine.School.Courses);
         }
 
         private static void PrintCourses(List<Course> courses)
