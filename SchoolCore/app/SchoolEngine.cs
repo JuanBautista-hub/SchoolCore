@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SchoolCore.entities;
-namespace SchoolCore
+namespace SchoolCore.app
 {
     public sealed class SchoolEngine
     {
@@ -88,15 +88,15 @@ namespace SchoolCore
 
         private void LoadEvaluations()
         {
-
+            var rnd = new Random();
             foreach (var cour in School.Courses)
             {
                 foreach (var subj in cour.Subject)
                 {
                     foreach (var alum in cour.Student)
                     {
-                        var rnd = new Random(System.Environment.TickCount);
-                        for (int i = 0; i < 5; i++)
+             
+                        for (int i = 1; i < 5; i++)
                         {
 
                             var ev = new Evaluation
@@ -104,7 +104,7 @@ namespace SchoolCore
 
                                 Subject = subj,
                                 Name = $"{subj.Name} Ev#{i + 1}",
-                                Note = (float)(5 * rnd.NextDouble()),
+                                Note = (float)(10 * rnd.NextDouble()),
                                 Student = alum,
                             };
                             alum.Evaluation.Add(ev);
@@ -202,19 +202,74 @@ namespace SchoolCore
         }
         #endregion
 
-        public Dictionary<string, ObjSchoolBase> UseExampleDictionary() { 
-            
-            Dictionary <string, ObjSchoolBase> dict = new Dictionary<string, ObjSchoolBase>();
+        public Dictionary<KeysDictionary, IEnumerable<ObjSchoolBase>> UseExampleDictionary()
+        {
+            var dict = new Dictionary<KeysDictionary, IEnumerable<ObjSchoolBase>>();
+            dict.Add(KeysDictionary.School, new[] { School });
+            dict.Add(KeysDictionary.Courses, School.Courses.Cast<ObjSchoolBase>());
 
-            dict.Add("School", School);
+            var listTemp = new List<Evaluation>();
+            var listTempSubject = new List<Subject>();
+            var listTempStudent = new List<Student>();
 
-            dict.Add("Courses", School.Courses[0]);
-            dict.Add("Courses", School.Courses[2]);
+            foreach (var course in School.Courses)
+            {
+                listTempSubject.AddRange(course.Subject);
+                listTempStudent.AddRange(course.Student);
+                foreach (var stud in course.Student)
+                {
+                    listTemp.AddRange(stud.Evaluation);
+                }
+            }
+
+            dict.Add(KeysDictionary.Subject, listTempSubject.Cast<ObjSchoolBase>());
+            dict.Add(KeysDictionary.Student, listTempStudent.Cast<ObjSchoolBase>());
+            dict.Add(KeysDictionary.Evaluation, listTemp.Cast<ObjSchoolBase>());
 
             return dict;
-        
+        }
 
-        
+        public void PrintDictionary(Dictionary<KeysDictionary, IEnumerable<ObjSchoolBase>> dicc,
+            bool printSchool = false,
+            bool printStudent = false,
+            bool printCourse = false,
+            bool printSubject = false,
+            bool printEvaluation = false
+            )
+        {
+
+            foreach (var item in dicc)
+            {
+                util.Printer.WriteTitle($"{item.Key.ToString()}");
+                foreach (var element in item.Value)
+                {
+                  
+
+                    switch (item.Key)
+                    {
+                        case KeysDictionary.School:
+                            if(printSchool)
+                                Console.WriteLine(element);
+                            break;
+                        case KeysDictionary.Student:
+                            if (printStudent)
+                                Console.WriteLine(element);
+                            break;
+                        case KeysDictionary.Evaluation:
+                            if (printEvaluation)
+                                Console.WriteLine(element);
+                            break;
+                        case KeysDictionary.Courses:
+                            if (printCourse)
+                                Console.WriteLine(element);
+                            break;
+                        case KeysDictionary.Subject:
+                            if (printSubject)
+                                Console.WriteLine(element);
+                            break;
+                    }
+                }
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SchoolCore.entities;
+﻿using SchoolCore.app;
+using SchoolCore.entities;
 using SchoolCore.util;
 using System;
 
@@ -10,17 +11,32 @@ namespace SchoolCore
     {
         static void Main(string[] args)
         {
+
+            AppDomain.CurrentDomain.ProcessExit += ActionEvent;
+
             SchoolEngine engine = new SchoolEngine();
             engine.InitializeData();
-            engine.School.CleanDirection();;
-           //var listObj =  engine.GetObjShcool();
+            // engine.School.CleanDirection(); ;
+            //var listPlace = engine.UseExampleDictionary();
+            // engine.PrintDictionary(listPlace,true,false,false,false,true);
+            var report = new Report(engine.UseExampleDictionary());
+            var evaluation = report.GetTopAverage();
+            foreach (var item in evaluation)
+            {
+                foreach (var item2 in item.Value)
+                {
+                    Printer.LineDraw(30);
+                    Console.WriteLine($"Alumno:{item2.StudentName}");
+                    Console.WriteLine($"Promedio:{item2.Average}");
+                    Console.WriteLine($"Subject:{item2.Subject}");
 
-            //var listPlace = from obj in listObj select (IPlace) obj;
-            var listPlace = engine.GetObjSchool(false,false,false,false);
-            // Console.WriteLine(listPlace);
-            //PrintSchools(engine.School);
-            // PrintCourses(engine.School.Courses);
-            // PrintStudents(engine.School.Courses);
+                }
+            }
+        }
+
+        private static void ActionEvent(object? sender, EventArgs e)
+        {
+            Console.Beep(300, 1000);
         }
 
         private static void PrintCourses(List<Course> courses)
